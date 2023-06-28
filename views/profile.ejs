@@ -1,0 +1,15 @@
+<%- include('partials/header.ejs')%>
+
+<center>
+<div class="container">
+    <h1 class="show-name"><%=member.name%></h1>
+    <img class="img-thumbnail avatar" src="<%=member.avatar%>" style="padding:0">
+     <h3 class="cone">Rank -<%=member.rank%></h3>
+     <h3 class="cone">Position in clan -<%=member.position%></h3>
+     <h3 class="cone">Totals kills -<%=member.kills%></h3>
+     <h3 class="cone">wins -<%=member.wins%></h3>
+</div>
+</center>
+
+
+<%- include('partials/footer.ejs')%>

@@ -1,0 +1,92 @@
+<%- include('partials/header.ejs')%>
+<h1 class="show-name">This is the L+B admin dashboard </h1>
+<div class="container">
+<div class="add-new">
+    <h2 class="conew">Add new player</h2>
+    <form action="/add-member" method="post" enctype="multipart/form-data" >
+        <label>Player name</label>
+            <input type="text" class="form-control inp" name="name" required>
+        <label>Player avatar</label>
+            <input type="file" class="form-control inp" name="image" required>
+        <label>Position in clan</label>
+            <input type="text" class="form-control inp" name="position"required>
+        <label>Rank</label>
+            <input type="text" class="form-control inp" name="rank" required>
+        <label>wins</label>
+            <input type="number" class="form-control inp" name="wins" required>
+        <label>Total kills</label>
+            <input type="number" class="form-control inp" name="kills" required>
+        <button type="submit" class="btn-1 btn btn-primary form-control">submit</button>
+    </form>
+               <!--confirmation popup-->
+    <div id="confirmationPopup" class="popup-container">
+        <p>Are you sure about this?</p>
+        <button type="button" class="btn-cancel btn-outline-dark btn-sm">Cancel</button>
+        <button class="btn btn-outline-danger btn-proceed btn-sm">Proceed</button>
+      </div>
+      
+</div>
+</div>
+
+<div class="container mx-auto py-8 table-container">
+
+    <h1 class="show-name">Edit kills and wins</h1>
+         <p class="tell">*The kill/Win you are about to add would be summed up with the previous total kills/wins</p>
+     <table class="w-full table-responsive">
+         <thead>
+             <tr>
+                 <th class="text-left">NAME</th>
+                 <th class="text-left">RANK</th>
+                 <th class="text-left">TOTAL KILLS</th>
+                 <th class="text-left">TOTAL WINS</th>
+                 <th class="text-left">Edit rank</th>
+                 <th class="text-left">Add kills</th>
+                 <th class="text-left">Add wins</th>
+                 <th class="text-left">remove member</th>
+                 
+             </tr>
+         </thead>
+         <tbody>
+   <%members.forEach(function(member){%>
+          
+        <tr>
+                <td class="list-name"><a href="/members/<%=member._id%>/<%=member.name%>"><strong><%=member.name%></strong></a</td>
+                 <td><%=member.rank%></td>
+                 <td><%=member.kills%></td>
+                 <td><%=member.wins%></td>
+                 <!--rank edit-->
+                 <td>
+                    <form action="/member/<%=member._id%>/edit" method="post" data-member-id="<%=member._id%>">
+                    <input class="edit" type="text" name="member[rank]" placeholder="change rank" required>
+                    <button type="button"  class="btn btn-success btn-sm btn-2">change</button>
+                 </form>
+              </td> 
+                <!--edit kills-->
+          <td>
+            <form action="/member/<%=member._id%>/edit" method="post" data-member-id="<%=member._id%>">
+                     <input class="edit" type="number" name="member[kills]" placeholder="Add kills" required>
+                     <button type="button" class="btn btn-success btn-sm btn-3">add</button>
+                 </form>
+            </td> 
+                <!--edit wins-->
+      <td>
+        <form action="/member/<%=member._id%>/edit" method="post" data-member-id="<%=member._id%>">
+                <input class="edit" type="number" name="member[wins]" placeholder="Add win" required>
+                <button type="button" class="btn btn-success btn-sm btn-touching btn-4">add</button>
+            </form>
+         </td> 
+      <td>
+        <form action="/member/<%=member._id%>/delete" method="post" data-member-id="<%=member._id%>">           
+            <button type="button" class="btn btn-danger btn-sm btn-touching btn-5">Remove</button>
+            </form>
+          </td> 
+  </tr>
+
+   <%})%>
+         </tbody>
+         </table>
+         </div>
+        
+         <br>
+  
+<%- include('partials/footer.ejs')%>
