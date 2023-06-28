@@ -1,0 +1,102 @@
+    table {
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        border: 1px solid #000;
+        padding: 8px;
+    }
+  .table-container {
+        background-color: cyan;
+  }
+    .name {
+        color: tomato;
+    }
+
+.conew{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: xx-large;
+}
+
+#logo{
+    width:100%
+}
+
+.show-name{
+    font-size: xx-large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: center;
+    padding-bottom: 20px;
+    font-weight: 700;
+}
+
+.list-name{
+    background-color: burlywood;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+
+.add-new{
+    width:300px;
+    margin: 0 auto;
+}
+
+.popup-container {
+    width: 300px;
+    border: 2px solid #000;
+    border-radius: 8px;
+    z-index: 6;
+    visibility: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    /* Add other styling properties */
+  }
+  
+label{
+    margin-right: 100%;
+    white-space: nowrap;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-top: 5px;
+    padding-bottom: 0;
+}
+
+.btn-cancel{
+    margin-right: 96%;
+}
+
+.btn-proceed{
+    margin-left:50%;
+    display:none;
+    display: inline;
+}
+
+.edit{
+    width: 70px;
+    border-bottom: 2px solid black;
+}
+
+.btn-sm{
+   display:inline !important;
+   padding-top: 2px;
+}
+
+.tell{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding-bottom: 10px;
+}
+
+.cone{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+}
+
