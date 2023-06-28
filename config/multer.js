@@ -6,8 +6,11 @@ const storage = multer.diskStorage({
          cb(null, path.join("./public/files/"));
     },
     filename: (req, file, cb) => {
-        cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
-    }
+        const timestamp = new Date().toISOString().replace(/:/g, '_');
+        const filename = timestamp + '_' + file.originalname;
+        cb(null, filename);
+      }
+      
 });
 // checking file type
 const fileFilter = (req, file, cb) => {
@@ -19,5 +22,8 @@ const fileFilter = (req, file, cb) => {
 };
 exports.upload = multer({
     storage: storage,
+    limits: {
+        fileSize: 1044 * 1044 * 6
+    },
     fileFilter: fileFilter
 });
