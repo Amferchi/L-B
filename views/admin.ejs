@@ -16,7 +16,7 @@
             <input type="number" class="form-control inp" name="wins" required>
         <label>Total kills</label>
             <input type="number" class="form-control inp" name="kills" required>
-        <button type="submit" class="btn-1 btn btn-primary form-control">submit</button>
+        <button type="button" class="btn-1 btn btn-primary form-control">submit</button>
     </form>
                <!--confirmation popup-->
     <div id="confirmationPopup" class="popup-container">
@@ -58,26 +58,26 @@
                  <td>
                     <form action="/member/<%=member._id%>/edit" method="post" data-member-id="<%=member._id%>">
                     <input class="edit" type="text" name="member[rank]" placeholder="change rank" required>
-                    <button type="submit"  class="btn btn-success btn-sm btn-">change</button>
+                    <button type="button"  class="btn btn-success btn-sm btn-2">change</button>
                  </form>
               </td> 
                 <!--edit kills-->
           <td>
             <form action="/member/<%=member._id%>/edit" method="post" data-member-id="<%=member._id%>">
                      <input class="edit" type="number" name="member[kills]" placeholder="Add kills" required>
-                     <button type="submit" class="btn btn-success btn-sm btn-">add</button>
+                     <button type="button" class="btn btn-success btn-sm btn-3">add</button>
                  </form>
             </td> 
                 <!--edit wins-->
       <td>
         <form action="/member/<%=member._id%>/edit" method="post" data-member-id="<%=member._id%>">
                 <input class="edit" type="number" name="member[wins]" placeholder="Add win" required>
-                <button type="submit" class="btn btn-success btn-sm btn-touching btn-">add</button>
+                <button type="button" class="btn btn-success btn-sm btn-touching btn-4">add</button>
             </form>
          </td> 
       <td>
         <form action="/member/<%=member._id%>/delete" method="post" data-member-id="<%=member._id%>">           
-            <button type="submit" class="btn btn-danger btn-sm btn-touching btn-">Remove</button>
+            <button type="button" class="btn btn-danger btn-sm btn-touching btn-5">Remove</button>
             </form>
           </td> 
   </tr>
