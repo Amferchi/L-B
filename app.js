@@ -35,15 +35,6 @@ app.use(function(req , res , next){
   next();
 });
 
- User.register(new User({username:"potato boy"}), "Assoonasitgoeshome456#^", function(err, user){
-      if(err){
-      console.log("error", err.message); 
-      }
-  else{
-     console.log("User created successfully" + " " + user.username)
-    }
-      })
-
 app.get("/", function(req,res){
     res.render("home")
 })
@@ -102,14 +93,14 @@ app.post("/add-member",middleware.isLoggedin,multer.upload.single("image"),funct
       })
 })
 
-app.get("/members/:id/edit",middleware.isLoggedin, function(req,res){
+app.get("/member/:id/edit",middleware.isLoggedin, function(req,res){
   members.findByIdAndUpdate(req.params.id, req.body.member, function(err,member){
      if(err){console.log(err)}
      else{res.render("profile" , {member:member})}
   })
 })
 
-app.get("/members/:id/delete", middleware.isLoggedin,function(req,res){
+app.post("/member/:id/delete", middleware.isLoggedin,function(req,res){
   members.findByIdAndDelete(req.params.id, function(err){
      if(err){console.log(err)}
      else{res.redirect("/admin")}
