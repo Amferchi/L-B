@@ -11,8 +11,7 @@ var members = require("./models/members.js");
 var multer = require("./config/multer");
 var middleware = require("./middleware/index.js");
 
-mongoose.connect("mongodb://localhost/Lb")
-
+mongoose.connect("mongodb+srv://Amferchi:wapman@cluster0.5n3ffrc.mongodb.net/?retryWrites=true&w=majority")
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.set("view engine" , "ejs")
