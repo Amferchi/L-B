@@ -82,10 +82,10 @@ app.post("/add-member",middleware.isLoggedin,multer.upload.single("image"),funct
     members.create({
       name:req.body.name,
       rank:req.body.rank,
-      kills:req.body.rank,
+      kills:req.body.kills,
       avatar:"/files/" + req.file.filename,
-      wins:req.body.rank,
-      position:req.body.rank}, function(err, member){
+      wins:req.body.wins,
+      position:req.body.position}, function(err, member){
     if(err){console.log(err)}
     else{
       req.flash("success", "You have successfully added" + "" +  member.name + "" + "to the clan")
