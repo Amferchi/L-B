@@ -18,7 +18,7 @@
         <tbody>
   <%members.forEach(function(member){%>  
             <tr>
-                <td class="list-name cone"><a href="/members/<%=member._id%>/<%=member.name%>"><%=member.name%></a></td>
+                <td class="list-name cone"><a href="/members/<%=member._id%>/<%=member.name%>"><strong><%=member.name%></strong></a></td>
                 <td class="cone"><%=member.rank%></td>
                 <td class="cone"><%=member.position%></td>
                 <td class="cone"><%=member.kills%></td>
