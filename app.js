@@ -10,8 +10,12 @@ var User = require("./models/user.js");
 var members = require("./models/members.js");
 var multer = require("./config/multer");
 var middleware = require("./middleware/index.js");
-
-mongoose.connect("mongodb+srv://Amferchi:wapman@cluster0.5n3ffrc.mongodb.net/?retryWrites=true&w=majority")
+const cloudinary = require('cloudinary').v2;
+var db = process.env.db
+mongoose.connect(db)
+var cloud_api_secret = process.env.cloud_api_secret
+var cloud_name = process.env.cloud_name
+var cloud_api_key = process.env.cloud_api_key
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.set("view engine" , "ejs")
@@ -34,6 +38,13 @@ app.use(function(req , res , next){
   res.locals.success= req.flash("success");
   next();
 });
+
+cloudinary.config({
+  cloud_name:cloud_name,
+  api_key:cloud_api_key,
+  api_secret:cloud_api_secret
+});
+
 
 app.get("/", function(req,res){
     res.render("home")
@@ -79,21 +90,35 @@ app.post("/login", passport.authenticate("local" , {
 })
 
 app.post("/add-member",middleware.isLoggedin,multer.upload.single("image"),function(req,res){
-    members.create({
-      name:req.body.name,
-      rank:req.body.rank,
-      kills:req.body.kills,
-      avatar:"/files/" + req.file.filename,
-      wins:req.body.wins,
-      position:req.body.position}, function(err, member){
+  
+    // Upload file to Cloudinary
+    cloudinary.uploader.upload(req.file.path, (error, result) => {
+      if (error) {
+        // Handle upload error
+        console.error(error);
+        res.status(500).json({ error: 'Failed to upload file' });
+      } else {
+ 
+   members.create({
+       name:req.body.name,
+       rank:req.body.rank,
+       kills:req.body.kills,
+       avatar:result.url,
+       wins:req.body.wins,
+       position:req.body.position}, function(err, member){
     if(err){console.log(err)}
-    else{
+    else{ 
+      // File uploaded successfully
+      console.log(result); 
       req.flash("success", "You have successfully added" + "" +  member.name + "" + "to the clan")
       res.redirect("/admin")}
       })
-})
+      }
+    });
+  });
 
-app.get("/member/:id/edit",middleware.isLoggedin, function(req,res){
+
+app.post("/member/:id/edit",middleware.isLoggedin, function(req,res){
   members.findByIdAndUpdate(req.params.id, req.body.member, function(err,member){
      if(err){console.log(err)}
      else{res.render("profile" , {member:member})}
