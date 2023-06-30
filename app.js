@@ -6,11 +6,13 @@ var localStrategy = require("passport-local")
 var passmonlocal = require("passport-local-mongoose");
 var bodyParser = require("body-parser");
 var flash = require("connect-flash");
-var User = require("./models/user.js");
+var Usar = require("./models/user.js");
 var members = require("./models/members.js");
 var multer = require("./config/multer");
 var middleware = require("./middleware/index.js");
 const cloudinary = require('cloudinary').v2;
+require('dotenv').config();
+
 var db = process.env.db
 mongoose.connect(db)
 var cloud_api_secret = process.env.cloud_api_secret
@@ -28,9 +30,9 @@ app.use(require("express-session")({
 app.use(flash())
 app.use(passport.initialize());
 app.use(passport.session())
-passport.use(new localStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser())
-passport.deserializeUser(User.deserializeUser())
+passport.use(new localStrategy(Usar.authenticate()));
+passport.serializeUser(Usar.serializeUser())
+passport.deserializeUser(Usar.deserializeUser())
 
 app.use(function(req , res , next){
   res.locals.currentUser = req.user;
@@ -38,6 +40,7 @@ app.use(function(req , res , next){
   res.locals.success= req.flash("success");
   next();
 });
+
 
 cloudinary.config({
   cloud_name:cloud_name,
@@ -90,7 +93,6 @@ app.post("/login", passport.authenticate("local" , {
 })
 
 app.post("/add-member",middleware.isLoggedin,multer.upload.single("image"),function(req,res){
-  
     // Upload file to Cloudinary
     cloudinary.uploader.upload(req.file.path, (error, result) => {
       if (error) {
@@ -98,7 +100,6 @@ app.post("/add-member",middleware.isLoggedin,multer.upload.single("image"),funct
         console.error(error);
         res.status(500).json({ error: 'Failed to upload file' });
       } else {
- 
    members.create({
        name:req.body.name,
        rank:req.body.rank,
@@ -117,11 +118,25 @@ app.post("/add-member",middleware.isLoggedin,multer.upload.single("image"),funct
     });
   });
 
+app.post("/member/:id/image",middleware.isLoggedin,multer.upload.single("image"),function(req,res){
+    // Upload file to Cloudinary
+    cloudinary.uploader.upload(req.file.path, (error, result) => {
+      if (error) {
+        // Handle upload error
+        console.error(error);
+        res.status(500).json({ error: 'Failed to upload file' });
+      } else {
+     members.findByIdAndUpdate(req.params.id, {avatar:result.url}, function(err){
+          if(err){console.log(err)}
+          else{res.redirect("/admin")}
+       })}
+     })
+   })
 
 app.post("/member/:id/edit",middleware.isLoggedin, function(req,res){
-  members.findByIdAndUpdate(req.params.id, req.body.member, function(err,member){
+  members.findByIdAndUpdate(req.params.id, req.body.member, function(err){
      if(err){console.log(err)}
-     else{res.render("profile" , {member:member})}
+     else{res.redirect("/admin")}
   })
 })
 
