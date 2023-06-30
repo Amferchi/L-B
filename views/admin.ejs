@@ -31,7 +31,7 @@
 <div class="container mx-auto py-8 table-container">
 
     <h1 class="show-name">Edit kills and wins</h1>
-         <p class="tell">*The kill/Win you are about to add would be summed up with the previous total kills/wins</p>
+         <p class="tell">*Sum the new kill/win with the previous total kill/win then enter the value</p>
      <table class="w-full table-responsive">
          <thead>
              <tr>
@@ -39,6 +39,7 @@
                  <th class="text-left">RANK</th>
                  <th class="text-left">TOTAL KILLS</th>
                  <th class="text-left">TOTAL WINS</th>
+                 <th class="text-left">Edit avatar</th>
                  <th class="text-left">Edit rank</th>
                  <th class="text-left">Add kills</th>
                  <th class="text-left">Add wins</th>
@@ -54,6 +55,13 @@
                  <td><%=member.rank%></td>
                  <td><%=member.kills%></td>
                  <td><%=member.wins%></td>
+                   <!--edit avatar-->
+                 <td>
+                    <form action="/member/<%=member._id%>/image" method="post" data-member-id="<%=member._id%>" enctype="multipart/form-data">
+                        <input class="edit" type="file" name="image" required>
+                        <button type="submit"  class="btn btn-success btn-sm btn-">change</button>
+                     </form>
+                 </td>
                  <!--rank edit-->
                  <td>
                     <form action="/member/<%=member._id%>/edit" method="post" data-member-id="<%=member._id%>">
